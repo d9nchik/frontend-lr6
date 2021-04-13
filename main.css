@@ -1,0 +1,13 @@
+body {
+  background-color: bisque;
+}
+
+li em {
+  color: black;
+}
+
+li.inProgress em {
+  color: coral;
+  font-weight: 800;
+  font-size: 25px;
+}
