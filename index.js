@@ -34,3 +34,40 @@ function addTodo(todoText) {
     }
   });
 }
+
+get('todo.json', data => JSON.parse(data).forEach(addTodo));
+
+// The same idea but with promise, fetch and async await
+
+// (async () => {
+//   const result = await fetch('todo.json');
+//   const array = await result.json();
+//   array.forEach(addTodo);
+// })();
+
+function get(url, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onload = () => {
+    if (xhr.status == 200) {
+      callback(xhr.response);
+    } else {
+      console.log(`Error! ${xhr.status}: ${xhr.statusText}`);
+    }
+  };
+  xhr.send();
+}
+
+function post(url, body, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', url, true);
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState != XMLHttpRequest.DONE) return;
+    if (xhr.status == 200) {
+      callback(xhr.response);
+    } else {
+      console.log(`Error! ${xhr.status}: ${xhr.statusText}`);
+    }
+  };
+  xhr.send(body);
+}
